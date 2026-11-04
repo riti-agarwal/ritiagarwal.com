@@ -1,0 +1,544 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Riti Agarwal</title>
+<meta name="description" content="hello i am riti. Come on in and look around.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* A field notebook: dot-grid pages, typed labels, a hand-lettered voice, and a pen sketch of the house taped in. */
+:root {
+  --paper: #f7f3ec;
+  --sheet: #fffdf8;
+  --dot: #dcd4c7;
+  --ink: #2b2420;
+  --muted: #857a70;
+  --rule: #e2dbd0;
+  --accent: #b45a36;
+  --tint: #f3e4d9;
+  --tape: rgba(214, 196, 150, .55);
+  --sea: #efebe3;
+  --land: #d6cdbf;
+  --court: #eef1e6;
+  --ball: #d9e04e;
+  --hand: "Architects Daughter", "Bradley Hand", cursive;
+  --sans: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0; color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.65;
+  background-color: var(--paper);
+  background-image: radial-gradient(var(--dot) 1px, transparent 1.2px);
+  background-size: 22px 22px;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration-color: var(--accent); text-decoration-thickness: 1.5px; text-underline-offset: 4px; }
+a:hover { color: var(--accent); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+p { margin: 0; }
+.wrap { max-width: 740px; margin: 0 auto; padding-left: max(20px, env(safe-area-inset-left)); padding-right: max(20px, env(safe-area-inset-right)); }
+
+/* typed header strip */
+.top { display: flex; justify-content: space-between; align-items: center; gap: 10px 18px; flex-wrap: wrap; padding-block: 22px 14px; border-bottom: 1px solid var(--rule); font-family: var(--mono); font-size: 12.5px; }
+.top .name { text-decoration: none; letter-spacing: .02em; }
+.top nav { display: flex; gap: 16px; align-items: center; }
+.top nav a { color: var(--muted); text-decoration: none; }
+.top nav a:hover { color: var(--accent); }
+
+/* hello */
+.hello { padding-block: 50px 30px; text-align: center; display: grid; justify-items: center; gap: 6px; }
+.hello .glyph { width: 44px; height: 44px; color: var(--accent); }
+h1 { font-family: var(--hand); font-weight: 400; font-size: clamp(46px, 8vw, 66px); line-height: 1.05; margin: 4px 0 0; }
+.sub { color: var(--muted); font-family: var(--mono); font-size: 13px; }
+
+/* numbered section labels, typed */
+.label { display: flex; align-items: center; gap: 12px; font-family: var(--mono); font-size: 11.5px; text-transform: uppercase; letter-spacing: .16em; color: var(--muted); margin: 0 0 18px; }
+.label .no { color: var(--accent); letter-spacing: .05em; }
+.label::after { content: ""; flex: 1; border-top: 1px dashed var(--rule); }
+.block { padding-block: 24px; }
+.intro { font-size: 18px; line-height: 1.6; }
+.intro a { border-radius: 3px; transition: background-color .2s; }
+.intro a:hover { background: var(--tint); color: inherit; }
+
+/* the house: a pen sketch taped into the notebook */
+.note { font-family: var(--hand); color: var(--accent); font-size: 21px; display: flex; align-items: end; gap: 6px; margin: 0 0 10px; }
+.note svg { width: 46px; height: 30px; flex: none; }
+.sheet { position: relative; margin: 0; padding: 14px; background: var(--sheet); border: 1px solid var(--rule); box-shadow: 0 1px 2px rgba(0,0,0,.05), 0 10px 24px -14px rgba(60,40,20,.35); }
+.sheet::before, .sheet::after { content: ""; position: absolute; top: -10px; width: 86px; height: 22px; background: var(--tape); }
+.sheet::before { left: 18px; transform: rotate(-5deg); }
+.sheet::after { right: 18px; transform: rotate(4deg); }
+.plan { display: block; width: 100%; height: auto; }
+.plan .sk { filter: url(#sketch); }
+.plan .room { cursor: pointer; }
+.plan .room .floor { fill: var(--sheet); transition: fill .2s; }
+.plan .room:hover .floor, .plan .room.active .floor, .plan .room:focus-visible .floor { fill: var(--tint); }
+.plan .room:focus-visible { outline: none; }
+.plan .room:hover .lbl, .plan .room.active .lbl { fill: var(--accent); }
+.plan .lbl { font-family: var(--hand); font-size: 19px; fill: var(--ink); transition: fill .2s; }
+.plan .tiny { font-family: var(--hand); font-size: 11px; fill: var(--ink); }
+.plan .walls { fill: none; stroke: var(--ink); stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; pointer-events: none; }
+.plan .line { fill: none; stroke: var(--ink); stroke-width: 1.3; stroke-linejoin: round; stroke-linecap: round; }
+.plan .solid { fill: var(--sheet); stroke: var(--ink); stroke-width: 1.3; stroke-linejoin: round; }
+.plan .window { fill: var(--sheet); stroke: var(--ink); stroke-width: 1; }
+.plan .ink { fill: var(--ink); }
+.plan .acc { fill: var(--accent); }
+.plan .acc-line { fill: none; stroke: var(--accent); stroke-width: 2.2; stroke-linecap: round; }
+.plan .leaf { fill: #9bb48a; stroke: var(--ink); stroke-width: 1; }
+.plan .court-bg { fill: var(--court); }
+.plan .room:hover .court-bg, .plan .room.active .court-bg { fill: var(--tint); }
+.plan .small { font-family: var(--hand); font-size: 14px; fill: var(--muted); }
+.chips { list-style: none; padding: 0; margin: 16px 0 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.chips a { display: inline-block; font-family: var(--hand); font-size: 15px; text-decoration: none; border: 1px solid var(--rule); background: var(--sheet); border-radius: 999px; padding: 2px 13px; color: var(--muted); }
+.chips a:hover, .chips a.active { color: var(--sheet); background: var(--ink); border-color: var(--ink); }
+
+/* rooms */
+.room-section { padding-block: 30px 10px; scroll-margin-top: 16px; }
+.js .room-section:not([hidden]) { animation: enter .35s ease-out; }
+@keyframes enter { from { opacity: 0; transform: translateY(10px); } }
+@media (prefers-reduced-motion: reduce) { .js .room-section:not([hidden]) { animation: none; } }
+.room-section .youre { font-family: var(--mono); color: var(--accent); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; }
+.room-section h2 { font-family: var(--hand); font-weight: 400; font-size: clamp(34px, 5vw, 44px); line-height: 1.1; margin: 2px 0 14px; }
+.room-section h3 { font-family: var(--mono); font-size: 11.5px; text-transform: uppercase; letter-spacing: .16em; color: var(--muted); margin: 26px 0 10px; font-weight: 500; }
+.room-section p + p { margin-top: 12px; }
+.room-section ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+.room-section li { padding-left: 22px; position: relative; }
+.room-section li::before { content: ""; position: absolute; left: 3px; top: .62em; width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid var(--accent); }
+.room-section li b { font-weight: 700; }
+.room-section .soon { margin-top: 14px; font-family: var(--hand); color: var(--muted); font-size: 19px; }
+.back { display: inline-block; margin-top: 22px; font-family: var(--hand); font-size: 17px; color: var(--muted); }
+
+/* map room */
+.world { display: block; width: 100%; height: auto; margin: 6px 0 4px; border: 1px solid var(--rule); background: var(--sheet); }
+.world .sea { fill: var(--sea); }
+.world .land { fill: var(--land); }
+.world .frame { fill: var(--sea); stroke: var(--ink); stroke-width: 1; }
+.world .zoom { stroke: var(--muted); stroke-width: .8; fill: none; }
+.world .pin circle { fill: var(--accent); stroke: var(--sheet); stroke-width: 1.5; }
+.world .pin text { font-family: var(--hand); font-size: 12px; fill: var(--ink); }
+.world .pin:hover text { fill: var(--accent); }
+.world .tag { font-family: var(--hand); font-size: 11px; fill: var(--muted); }
+.cities { display: grid; gap: 4px; margin-top: 10px; }
+.room-section .cities p + p { margin-top: 0; }
+.city { padding: 12px 14px; border-radius: 6px; scroll-margin-top: 16px; transition: background-color .3s; }
+.city:target { background: var(--tint); }
+.city b { display: block; font-family: var(--hand); font-size: 21px; font-weight: 400; }
+
+/* elsewhere */
+.links { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.links li { display: grid; grid-template-columns: 90px minmax(0, 1fr); gap: 12px; align-items: baseline; }
+.links span { color: var(--muted); font-family: var(--mono); font-size: 12.5px; }
+
+footer { padding-block: 26px 52px; margin-top: 24px; border-top: 1px solid var(--rule); color: var(--muted); font-family: var(--mono); font-size: 12px; text-align: center; }
+
+/* bullet-journal color: washi tape, highlighter, sticky notes, a pastel key per room */
+:root {
+  --sky: #bcd7e6; --butter: #f2dc8f; --blush: #f1c3b8; --sage: #bfd3ae; --lav: #d3c8ea;
+}
+.hl { background: linear-gradient(transparent 52%, color-mix(in srgb, var(--c, var(--butter)) 90%, transparent) 52%, color-mix(in srgb, var(--c, var(--butter)) 90%, transparent) 90%, transparent 90%); padding: 0 .12em; border-radius: 2px; }
+.hello .doodles { display: flex; align-items: center; gap: 10px; }
+.hello .spark { width: 18px; height: 18px; }
+
+/* washi tape on the section numbers */
+.label .no { background: var(--c, var(--butter)); color: var(--ink); padding: 1px 9px; transform: rotate(-2deg); letter-spacing: .08em;
+  background-image: repeating-linear-gradient(90deg, rgba(255,255,255,.35) 0 3px, transparent 3px 7px); }
+
+/* patterned tape holding the sketch and the map */
+.sheet::before { background: repeating-linear-gradient(45deg, var(--blush) 0 6px, #fae1da 6px 12px); opacity: .9; }
+.sheet::after { background-color: var(--sky); background-image: radial-gradient(#ffffff 1.6px, transparent 2px); background-size: 9px 9px; opacity: .9; }
+.taped { position: relative; margin: 10px 0 4px; }
+.taped::before { content: ""; position: absolute; top: -9px; left: 50%; width: 92px; height: 20px; transform: translateX(-50%) rotate(-2deg);
+  background: repeating-linear-gradient(90deg, var(--sage) 0 8px, #dfe9d6 8px 16px); opacity: .9; z-index: 1; }
+.taped .world { margin: 0; }
+
+/* each room gets its own pastel, on the plan and in the key */
+.plan .room .floor { fill: color-mix(in srgb, var(--c) 26%, var(--sheet)); }
+.plan .room:hover .floor, .plan .room.active .floor, .plan .room:focus-visible .floor { fill: color-mix(in srgb, var(--c) 62%, var(--sheet)); }
+.plan .room .court-bg { fill: color-mix(in srgb, var(--sage) 40%, var(--sheet)); }
+.plan .room:hover .court-bg, .plan .room.active .court-bg { fill: color-mix(in srgb, var(--sage) 75%, var(--sheet)); }
+.chips a { display: inline-flex; align-items: center; gap: 7px; }
+.chips a::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--c); border: 1px solid rgba(0,0,0,.15); }
+.room-section li::before { border-color: var(--ink); background: var(--c, var(--butter)); }
+
+/* random facts as sticky notes */
+.room-section ul.stickies { grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 16px; margin-top: 6px; align-items: start; }
+.stickies li { padding: 14px 14px 16px; font-size: 15px; line-height: 1.5; background: var(--butter); box-shadow: 0 1px 1px rgba(0,0,0,.06), 0 6px 12px -8px rgba(60,40,20,.4); transform: rotate(-1.2deg); }
+.stickies li:nth-child(5n+2) { background: var(--blush); transform: rotate(1deg); }
+.stickies li:nth-child(5n+3) { background: var(--sky); transform: rotate(-.6deg); }
+.stickies li:nth-child(5n+4) { background: var(--sage); transform: rotate(1.4deg); }
+.stickies li:nth-child(5n+5) { background: var(--lav); transform: rotate(-1.6deg); }
+.room-section .stickies li::before { display: none; }
+
+/* world map v2: a pen-and-wash atlas page */
+.world { background: none; border: 0; }
+.world .globe { fill: color-mix(in srgb, var(--sky) 42%, var(--sheet)); stroke: var(--ink); stroke-width: 1; }
+.world .grat { fill: none; stroke: var(--ink); stroke-opacity: .16; stroke-width: .6; stroke-dasharray: 2 3; }
+.world .land2 { fill: var(--sheet); stroke: var(--ink); stroke-width: .7; stroke-linejoin: round; filter: url(#sketch); }
+.world .route { fill: none; stroke: var(--accent); stroke-width: 1.6; stroke-dasharray: 3 5; stroke-linecap: round; }
+.world .frame { fill: color-mix(in srgb, var(--sky) 42%, var(--sheet)); stroke: var(--ink); stroke-width: 1.2; }
+.world .pin text { font-size: 15px; }
+.world .pin text, .world .tag { paint-order: stroke; stroke: var(--sheet); stroke-width: 4px; stroke-linejoin: round; }
+.world .tag { font-size: 13px; fill: var(--ink); }
+
+/* phones: the floor plan becomes big tappable room tiles */
+.tiles { display: none; }
+.tile { display: block; border: 2px solid var(--ink); border-radius: 3px; overflow: hidden; aspect-ratio: 1; background: color-mix(in srgb, var(--c) 26%, var(--sheet)); }
+.tile svg { display: block; width: 100%; height: 100%; }
+.tile.wide { grid-column: span 2; aspect-ratio: auto; }
+.tile.wide svg { height: auto; }
+.tile.active { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent); }
+@media (max-width: 600px) {
+  .sheet > .plan, .chips { display: none; }
+  .tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .sheet { padding: 12px; }
+  .hello { padding-block: 34px 18px; }
+  .intro { font-size: 17px; }
+  .note { font-size: 19px; }
+  .world .pin text { font-size: 17px; }
+  .world .pin.sf text { transform: translateY(8px); }
+  .world .tag { font-size: 15px; }
+  .links li { grid-template-columns: 70px minmax(0, 1fr); }
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><path id="world-land" d="{{WORLD}}"/><filter id="sketch" x="-3%" y="-3%" width="106%" height="106%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="11" result="noise"/>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.4" xChannelSelector="R" yChannelSelector="G"/>
+      </filter></defs></svg>
+
+<div class="wrap">
+<header class="top">
+  <a class="name" href="#house">ritiagarwal.com</a>
+  <nav aria-label="elsewhere">
+    <a href="https://x.com/riti_agarwal084">X</a>
+    <a href="https://github.com/riti-agarwal">github</a>
+    <a href="https://www.linkedin.com/in/riti-agarwal-0310051a9">linkedin</a>
+  </nav>
+</header>
+
+<section class="hello">
+  <div class="doodles"><svg class="spark" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 1 C9.6 6.5 11.5 8.4 17 9 C11.5 9.6 9.6 11.5 9 17 C8.4 11.5 6.5 9.6 1 9 C6.5 8.4 8.4 6.5 9 1 Z" fill="var(--butter)"/></svg><svg class="glyph" viewBox="0 0 46 46" aria-hidden="true"><path d="M6 22 L23 7 L40 22 M10 19 V39 H36 V19 M19 39 V29 H27 V39 M30 12 V7 H34 V15.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></svg><svg class="spark" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 1 C9.6 6.5 11.5 8.4 17 9 C11.5 9.6 9.6 11.5 9 17 C8.4 11.5 6.5 9.6 1 9 C6.5 8.4 8.4 6.5 9 1 Z" fill="var(--blush)"/></svg></div>
+  <h1>hello i am <span class="hl" style="--c:var(--butter)">riti</span></h1>
+  <p class="sub">come on in and look around</p>
+</section>
+
+<section class="block" id="about">
+  <p class="label"><span class="no" style="--c:var(--butter)">01</span>about</p>
+  <p class="intro">I enjoy <a href="#desk">training (mostly posttraining) models</a>, <a href="#desk">building evals and thinking about clean data</a>, and <a href="#court">playing tennis</a>! I also enjoy <a href="#trail">hiking</a>, <a href="#kitchen">going to the farmers market</a>, and pottery!</p>
+</section>
+
+<section class="block house" id="house" aria-label="floor plan">
+  <p class="label"><span class="no" style="--c:var(--sage)">02</span>the house</p>
+  <p class="note">come on in! pick a room
+    <svg viewBox="0 0 46 30" aria-hidden="true"><path d="M3 6 C 16 4, 30 8, 36 24 M28 20 L36 25 L39 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </p>
+  <figure class="sheet">
+  <svg class="plan" viewBox="0 0 760 476" role="group" aria-label="floor plan of the rooms of my life">
+    <g id="plan-art">
+
+    <!-- the desk -->
+    <a class="room" href="#desk" style="--c:var(--sky)" aria-label="the desk">
+      <rect class="floor" x="20" y="20" width="167" height="170"/>
+      <g class="sk">
+        <rect class="solid" x="28" y="62" width="14" height="104"/>
+        <path class="line" d="M28 82 H42 M28 104 H42 M28 126 H42 M28 148 H42 M32 64 V80 M36 64 V80 M31 84 V102 M37 84 V102 M33 106 V124"/>
+        <rect class="solid" x="62" y="66" width="104" height="38" rx="2"/>
+        <rect class="solid" x="96" y="71" width="36" height="22" rx="2"/>
+        <rect class="ink" x="99" y="74" width="30" height="16" rx="1"/>
+        <circle class="solid" cx="76" cy="80" r="7"/><circle class="acc" cx="76" cy="80" r="2.5"/>
+        <circle class="solid" cx="152" cy="84" r="5.5"/><path class="line" d="M157.5 84 h3"/>
+        <rect class="solid" x="100" y="114" width="28" height="24" rx="7"/>
+        <circle class="leaf" cx="166" cy="168" r="8"/><path class="line" d="M166 160 v-6 M160 163 l-4 -4 M172 163 l4 -4"/>
+      </g>
+      <text class="lbl" x="34" y="46">the desk</text>
+    </a>
+
+    <!-- the workshop -->
+    <a class="room" href="#workshop" style="--c:var(--butter)" aria-label="the workshop">
+      <rect class="floor" x="187" y="20" width="166" height="170"/>
+      <g class="sk">
+        <rect class="solid" x="334" y="58" width="12" height="96"/>
+        <path class="line" d="M338 68 h4 M338 80 h4 M338 92 h4 M338 104 h4 M338 116 h4 M338 128 h4 M338 140 h4"/>
+        <rect class="solid" x="200" y="112" width="116" height="22" rx="2"/>
+        <rect class="solid" x="226" y="102" width="20" height="10"/>
+        <polyline class="line" points="236,102 248,74 284,64" style="stroke-width:3"/>
+        <path class="line" d="M284 64 l8 -5 M284 64 l9 3"/>
+        <circle class="acc" cx="236" cy="102" r="4"/><circle class="acc" cx="248" cy="74" r="4"/><circle class="acc" cx="284" cy="64" r="4"/>
+        <circle class="solid" cx="300" cy="105" r="4"/>
+        <path class="line" d="M206 178 L238 150 M232 154 l10 -2"/>
+        <ellipse class="solid" cx="300" cy="172" rx="9" ry="4"/>
+        <path class="line" d="M300 172 V146"/><path class="acc" d="M300 146 L316 151 L300 156 Z"/>
+      </g>
+      <text class="lbl" x="201" y="46">the workshop</text>
+    </a>
+
+    <!-- random facts -->
+    <a class="room" href="#facts" style="--c:var(--lav)" aria-label="random facts">
+      <rect class="floor" x="353" y="20" width="167" height="170"/>
+      <g class="sk">
+        <rect class="solid" x="370" y="118" width="52" height="44" rx="1"/><path class="line" d="M370 127 H422 M396 118 V127"/>
+        <rect class="solid" x="426" y="128" width="50" height="34" rx="1"/><path class="line" d="M426 137 H476 M451 128 V137"/>
+        <rect class="solid" x="390" y="76" width="52" height="42" rx="1"/><path class="line" d="M390 85 H442 M416 76 V85"/>
+        <rect x="462" y="66" width="22" height="22" style="fill:var(--ball);stroke:var(--ink);stroke-width:1" transform="rotate(8 473 77)"/>
+        <rect x="482" y="98" width="22" height="22" style="fill:var(--tint);stroke:var(--ink);stroke-width:1" transform="rotate(-6 493 109)"/>
+        <path class="line" d="M466 74 h12 M466 79 h9 M486 105 h12 M486 110 h8"/>
+      </g>
+      <text class="acc" x="490" y="164" style="font-family:var(--hand);font-size:34px">?</text>
+      <text class="lbl" x="367" y="46">random facts</text>
+    </a>
+
+    <!-- the kitchen -->
+    <a class="room" href="#kitchen" style="--c:var(--blush)" aria-label="the kitchen">
+      <rect class="floor" x="20" y="190" width="220" height="170"/>
+      <g class="sk">
+        <path class="solid" d="M28 210 H52 V326 H120 V352 H28 Z"/>
+        <circle class="line" cx="36" cy="226" r="4"/><circle class="line" cx="45" cy="226" r="4"/><circle class="line" cx="36" cy="238" r="4"/><circle class="line" cx="45" cy="238" r="4"/>
+        <rect class="line" x="32" y="272" width="14" height="22" rx="4"/><circle class="ink" cx="39" cy="278" r="1.5"/>
+        <rect class="solid" x="200" y="200" width="32" height="40" rx="2"/><path class="line" d="M200 216 H232 M226 205 v6 M226 222 v10"/>
+        <circle class="solid" cx="152" cy="284" r="30"/>
+        <circle class="solid" cx="152" cy="241" r="8"/><circle class="solid" cx="152" cy="327" r="8"/><circle class="solid" cx="109" cy="284" r="8"/><circle class="solid" cx="195" cy="284" r="8"/>
+        <path class="line" d="M140 284 A12 13 0 0 1 164 284"/>
+        <circle class="acc" cx="146" cy="281" r="5"/><circle cx="153" cy="279" r="5" style="fill:var(--ball);stroke:var(--ink);stroke-width:1"/><circle class="leaf" cx="159" cy="281" r="5"/>
+        <path class="solid" d="M136 284 H168 A16 11 0 0 1 136 284 Z"/>
+      </g>
+      <text class="lbl" x="64" y="216">the kitchen</text>
+    </a>
+
+    <!-- the map room -->
+    <a class="room" href="#map" style="--c:var(--sage)" aria-label="the map room">
+      <rect class="floor" x="240" y="190" width="280" height="170"/>
+      <g class="sk">
+        <rect class="solid" x="292" y="226" width="180" height="78" rx="2"/>
+        <circle class="solid" cx="500" cy="244" r="11"/><ellipse class="line" cx="500" cy="244" rx="5" ry="11"/><path class="line" d="M489 244 H511 M500 255 V262 M492 263 H508"/>
+        <rect class="solid" x="254" y="314" width="34" height="32" rx="7"/><path class="line" d="M259 320 V340 M283 320 V340 M259 340 H283"/>
+        <ellipse class="line" cx="460" cy="336" rx="42" ry="13" style="stroke-dasharray:3 4"/>
+      </g>
+      <svg x="297" y="231" width="170" height="68" viewBox="0 0 600 233" preserveAspectRatio="none">
+        <rect width="600" height="233" style="fill:var(--sea)"/>
+        <use href="#world-land" style="fill:var(--land)"/>
+        <circle cx="429" cy="112" r="9" class="acc"/><circle cx="62" cy="80" r="9" class="acc"/>
+      </svg>
+      <text class="lbl" x="254" y="216">the map room</text>
+    </a>
+
+    <!-- tennis court -->
+    <a class="room" href="#court" style="--c:var(--sage)" aria-label="tennis court">
+      <rect class="floor court-bg" x="548" y="20" width="192" height="340" rx="3"/>
+      <g class="sk">
+        <rect class="line" x="566" y="62" width="156" height="282"/>
+        <path class="line" d="M584 62 V344 M704 62 V344 M584 132 H704 M584 274 H704 M644 132 V274 M644 62 v6 M644 344 v-6"/>
+        <path class="line" d="M556 203 H732" style="stroke-width:3"/>
+        <circle class="ink" cx="556" cy="203" r="3"/><circle class="ink" cx="732" cy="203" r="3"/>
+        <ellipse class="line" cx="708" cy="38" rx="9" ry="12" transform="rotate(35 708 38)"/>
+        <path class="line" d="M701 47 L690 58" style="stroke-width:2.5"/>
+      </g>
+      <circle cx="676" cy="238" r="5.5" style="fill:var(--ball);stroke:var(--ink);stroke-width:1"/>
+      <path d="M672 236 q4 2 8 0" style="fill:none;stroke:#fff;stroke-width:1"/>
+      <text class="lbl" x="562" y="46">tennis court</text>
+    </a>
+
+    <!-- the trailhead -->
+    <a class="room" href="#trail" style="--c:var(--butter)" aria-label="the trailhead">
+      <rect class="floor" x="20" y="382" width="720" height="82" rx="3"/>
+      <g class="sk">
+        <path class="line" d="M408 460 L462 402 L498 432 L552 388 L610 446 L650 412 L700 460"/>
+        <path class="line" d="M532 408 L552 388 L572 408 M446 418 L462 402 L478 418"/>
+        <path class="acc-line" d="M38 450 C 90 410, 150 466, 210 430 S 320 416, 392 452" style="stroke-dasharray:2 7"/>
+        <path class="leaf" d="M712 458 L722 432 L732 458 Z"/><path class="leaf" d="M392 458 L400 438 L408 458 Z"/><path class="leaf" d="M690 458 L698 440 L706 458 Z"/>
+        <path class="line" d="M322 458 V426"/><rect class="solid" x="302" y="414" width="44" height="15" rx="2"/>
+      </g>
+      <text class="tiny" x="324" y="425" text-anchor="middle">trail</text>
+      <text class="lbl" x="36" y="410">the trailhead</text>
+    </a>
+
+    <!-- walls, windows and doors, drawn over the floors -->
+    <g class="sk" style="pointer-events:none">
+      <path class="walls" d="M20 20 H520 V360 H420 M380 360 H20 V20 M187 20 V190 M353 20 V190 M20 190 H80 M120 190 H260 M300 190 H420 M460 190 H520 M240 190 V250 M240 290 V360"/>
+      <rect class="window" x="90" y="16.5" width="44" height="7"/><path class="line" d="M90 20 H134"/>
+      <rect class="window" x="246" y="16.5" width="44" height="7"/><path class="line" d="M246 20 H290"/>
+      <rect class="window" x="410" y="16.5" width="44" height="7"/><path class="line" d="M410 20 H454"/>
+      <rect class="window" x="16.5" y="248" width="7" height="44"/><path class="line" d="M20 248 V292"/>
+      <rect class="window" x="516.5" y="70" width="7" height="44"/><path class="line" d="M520 70 V114"/>
+      <rect class="window" x="516.5" y="270" width="7" height="44"/><path class="line" d="M520 270 V314"/>
+      <path class="line" d="M380 360 V322 M380 322 A38 38 0 0 1 418 360"/>
+    </g>
+    <text class="small" x="400" y="376" text-anchor="middle" style="pointer-events:none">front door</text>
+    </g>
+  </svg>
+  <div class="tiles">
+    <div class="tile" data-room="desk" style="--c:var(--sky)"><svg class="plan" viewBox="20 20 167 170" role="group" aria-label="the desk"><!--PLAN-ART--></svg></div>
+    <div class="tile" data-room="workshop" style="--c:var(--butter)"><svg class="plan" viewBox="187 20 166 170" role="group" aria-label="the workshop"><!--PLAN-ART--></svg></div>
+    <div class="tile" data-room="facts" style="--c:var(--lav)"><svg class="plan" viewBox="353 20 167 170" role="group" aria-label="random facts"><!--PLAN-ART--></svg></div>
+    <div class="tile" data-room="kitchen" style="--c:var(--blush)"><svg class="plan" viewBox="20 190 220 170" role="group" aria-label="the kitchen"><!--PLAN-ART--></svg></div>
+    <div class="tile" data-room="map" style="--c:var(--sage)"><svg class="plan" viewBox="240 190 280 170" role="group" aria-label="the map room"><!--PLAN-ART--></svg></div>
+    <div class="tile" data-room="court" style="--c:var(--sage)"><svg class="plan" viewBox="548 20 192 196" role="group" aria-label="tennis court"><!--PLAN-ART--></svg></div>
+    <div class="tile wide" data-room="trail" style="--c:var(--butter)"><svg class="plan" viewBox="20 382 720 82" role="group" aria-label="the trailhead"><!--PLAN-ART--></svg></div>
+  </div>
+  </figure>
+  <ul class="chips" aria-label="rooms">
+    <li><a href="#desk" style="--c:var(--sky)">the desk</a></li>
+    <li><a href="#workshop" style="--c:var(--butter)">the workshop</a></li>
+    <li><a href="#facts" style="--c:var(--lav)">random facts</a></li>
+    <li><a href="#kitchen" style="--c:var(--blush)">the kitchen</a></li>
+    <li><a href="#map" style="--c:var(--sage)">the map room</a></li>
+    <li><a href="#court" style="--c:var(--sage)">tennis court</a></li>
+    <li><a href="#trail" style="--c:var(--butter)">the trailhead</a></li>
+  </ul>
+</section>
+
+<main class="rooms" id="rooms">
+
+<section class="room-section" id="desk" style="--c:var(--sky)">
+  <p class="youre">you're at</p>
+  <h2><span class="hl">the desk</span></h2>
+  <p>This is where I train (mostly posttrain) models, build evals and think about clean data.</p>
+  <h3>right now</h3>
+  <p>At Composite I work on models that predict your next move in the browser, with no prompt. I fine-tune them, use RL so they learn when <i>not</i> to act, and work on making them fast enough to feel instant. I also build the evals that score each part of a prediction on its own, and the datasets made from real browsing sessions.</p>
+  <h3>before</h3>
+  <ul>
+    <li><b>Uber</b>: rider personalization.</li>
+    <li><b>Juniper Networks</b>: a conversational copilot for network admins. Productionized and patent pending.</li>
+    <li><b>OpalAI</b>: turning phone video into 3D reconstructions and retail floor plans.</li>
+    <li><b>Cedars-Sinai</b>: models on balance data to help assess hip and knee replacements.</li>
+    <li><b>Games24x7</b>: bandit experiments as a faster alternative to A/B tests.</li>
+  </ul>
+  <h3>research</h3>
+  <ul>
+    <li>Finding odd stars with topology, Caltech SURF 2022 (<a href="https://github.com/riti-agarwal/SURF">code</a>)</li>
+    <li>A paper on bandit algorithms, IJNTR 2020 (<a href="https://www.ijntr.org/the-epsilon-greedy-algorithm-a-performance-review">paper</a>)</li>
+    <li>Mars crater detection in the Murray Lab at Caltech</li>
+  </ul>
+  <a class="back" href="#house">back to the house</a>
+</section>
+
+<section class="room-section" id="workshop" style="--c:var(--butter)">
+  <p class="youre">you're in</p>
+  <h2><span class="hl">the workshop</span></h2>
+  <p>Things I've built.</p>
+  <ul style="margin-top:14px">
+    <li><b>A robot that plays mini-golf.</b> It finds its club with a camera, picks it up and putts. (<a href="https://github.com/riti-agarwal/134_project_proper">code</a>)</li>
+    <li><b>A robot that plays tennis.</b> A simulated arm that predicts the ball and hits it to a target. (<a href="https://github.com/riti-agarwal/Me-133a-Final-Project">code</a>)</li>
+    <li><b>TomorrowCard.</b> Student credit underwriting with agents. 1st place at AGI House, built with Krish Mehta. (<a href="https://www.linkedin.com/posts/riti-agarwal-0310051a9_thrilled-to-share-that-krish-mehta-and-i-activity-7321721374027239424-Igxu">announcement</a>)</li>
+    <li><b>Xactly.</b> A shopping assistant that finds products from a conversation. (<a href="https://github.com/riti-agarwal/Xactly_public">code</a>)</li>
+  </ul>
+  <a class="back" href="#house">back to the house</a>
+</section>
+
+<section class="room-section" id="facts" style="--c:var(--lav)">
+  <p class="youre">you found</p>
+  <h2><span class="hl">random facts</span></h2>
+  <ul class="stickies">
+    <li>I was born in Fremont but grew up in Bangalore.</li>
+    <li>Tennis took me to more than 30 countries.</li>
+    <li>I once gave my mini-golf robot GPT-4o as a brain. It picked the wrong move about 40% of the time and took about five seconds to think, so it got a simple state machine instead.</li>
+    <li>I also built a robot that plays tennis (in simulation).</li>
+    <li>I published a paper on multi-armed bandits in 2020.</li>
+    <li>I graduated from Caltech with a 4.0.</li>
+    <li>TomorrowCard, which I built with Krish Mehta, won 1st place at AGI House.</li>
+  </ul>
+  <p class="soon">more facts coming soon</p>
+  <a class="back" href="#house">back to the house</a>
+</section>
+
+<section class="room-section" id="kitchen" style="--c:var(--blush)">
+  <p class="youre">you're in</p>
+  <h2><span class="hl">the kitchen</span></h2>
+  <p>I enjoy going to the farmers market!</p>
+  <p class="soon">still unpacking this room. check back soon!</p>
+  <a class="back" href="#house">back to the house</a>
+</section>
+
+<section class="room-section" id="map" style="--c:var(--sage)">
+  <p class="youre">you're in</p>
+  <h2><span class="hl">the map room</span></h2>
+  <p>Places I've lived. Tap a pin.</p>
+  <div class="taped">
+  <svg class="world" viewBox="0 0 640 {{H2}}" role="img" aria-label="world map with pins on Fremont, Bangalore, Pasadena and San Francisco, joined by a dashed route">
+    <path class="globe" d="{{OUTLINE}}"/>
+    <path class="grat" d="{{GRAT}}"/>
+    <path class="land2" d="{{WORLD2}}"/>
+    <path class="route" d="{{ARC1}}"/>
+    <path class="route" d="{{ARC2}}"/>
+    <rect class="zoom" x="{{CAX}}" y="{{CAY}}" width="{{CAW}}" height="{{CAH}}"/>
+    <path class="zoom" d="M{{CAX}} {{CAB}} L{{BX}} {{BY}} M{{CAR}} {{CAB}} L{{BR}} {{BY}}"/>
+    <rect class="frame" x="{{BX}}" y="{{BY}}" width="{{BW}}" height="{{BH}}"/>
+    <path class="land2" d="{{INSET2}}"/>
+    <path class="route" d="{{ARC3}}"/>
+    <text class="tag" x="{{BX}}" y="{{TAGY}}">california</text>
+    <a class="pin" href="#city-bangalore"><circle cx="{{BANX}}" cy="{{BANY}}" r="5.5"/><text x="{{BANLX}}" y="{{BANLY}}">Bangalore</text></a>
+    <a class="pin sf" href="#city-sf"><circle cx="{{SFX}}" cy="{{SFY}}" r="4.5"/><text x="{{SFLX}}" y="{{SFLY}}">San Francisco</text></a>
+    <a class="pin" href="#city-fremont"><circle cx="{{FRX}}" cy="{{FRY}}" r="4.5"/><text x="{{FRLX}}" y="{{FRLY}}">Fremont</text></a>
+    <a class="pin" href="#city-pasadena"><circle cx="{{PAX}}" cy="{{PAY}}" r="4.5"/><text x="{{PALX}}" y="{{PALY}}" text-anchor="end">Pasadena</text></a>
+  </svg>
+  </div>
+  <div class="cities">
+    <p class="city" id="city-fremont"><b>Fremont</b>I was born in Fremont, in the East Bay. I moved to Bangalore as a kid, and years later came back to the Bay Area.</p>
+    <p class="city" id="city-bangalore"><b>Bangalore</b>I grew up in Bangalore. It was home base while I played professional tennis, which took me to more than 30 countries.</p>
+    <p class="city" id="city-pasadena"><b>Pasadena</b>I went to Caltech, just outside LA, and graduated with a 4.0. I built a robot that plays mini-golf and one that plays tennis, looked for odd stars with topology for SURF, and hunted for Mars craters in the Murray Lab. Along the way I worked with OpalAI, Cedars-Sinai and Games24x7.</p>
+    <p class="city" id="city-sf"><b>San Francisco</b>I live here now. At Composite I work on models that predict your next move in the browser: training them, building evals, and keeping the data clean. I've also worked at Uber on rider personalization, and at Juniper Networks on a conversational copilot for network admins, which was productionized and is patent pending. When I'm not working, I love hiking, going to the farmers market, and pottery.</p>
+  </div>
+  <a class="back" href="#house">back to the house</a>
+</section>
+
+<section class="room-section" id="court" style="--c:var(--sage)">
+  <p class="youre">you're on</p>
+  <h2><span class="hl">the tennis court</span></h2>
+  <p>I grew up playing tennis in Bangalore and played professionally, which took me to more than 30 countries.</p>
+  <p>At Caltech I even built <a href="https://github.com/riti-agarwal/Me-133a-Final-Project">a robot that plays tennis</a>.</p>
+  <p>I still love playing!</p>
+  <a class="back" href="#house">back to the house</a>
+</section>
+
+<section class="room-section" id="trail" style="--c:var(--butter)">
+  <p class="youre">you're at</p>
+  <h2><span class="hl">the trailhead</span></h2>
+  <p>I enjoy hiking!</p>
+  <p class="soon">still unpacking this one. check back soon!</p>
+  <a class="back" href="#house">back to the house</a>
+</section>
+
+</main>
+
+<section class="block" id="elsewhere">
+  <p class="label"><span class="no" style="--c:var(--sky)">03</span>elsewhere</p>
+  <ul class="links">
+    <li><span>X</span><a href="https://x.com/riti_agarwal084">@riti_agarwal084</a></li>
+    <li><span>github</span><a href="https://github.com/riti-agarwal">riti-agarwal</a></li>
+    <li><span>linkedin</span><a href="https://www.linkedin.com/in/riti-agarwal-0310051a9">riti agarwal</a></li>
+  </ul>
+</section>
+
+<footer>riti agarwal · san francisco · last updated november 2026</footer>
+</div>
+
+<script>
+// One room open at a time. Without JS every room just shows, stacked.
+(() => {
+  document.documentElement.classList.add('js');
+  const rooms = [...document.querySelectorAll('.room-section')];
+  const links = [...document.querySelectorAll('.plan .room, .chips a')];
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function show(e) {
+    const instant = reduce || !(e && e.type === 'hashchange');
+    const target = location.hash && document.getElementById(location.hash.slice(1));
+    const room = target && target.closest('.room-section');
+    rooms.forEach(r => { r.hidden = r !== room; });
+    links.forEach(a => a.classList.toggle('active', !!room && a.getAttribute('href') === '#' + room.id));
+    document.querySelectorAll('.tile').forEach(t => t.classList.toggle('active', !!room && t.dataset.room === room.id));
+    if (room) requestAnimationFrame(() => target.scrollIntoView({ behavior: instant ? 'auto' : 'smooth', block: 'start' }));
+  }
+  addEventListener('hashchange', show);
+  show();
+  // a direct link to a room: scroll again once fonts have settled the layout
+  if (location.hash && document.fonts) document.fonts.ready.then(() => show());
+})();
+</script>
+</body>
+</html>
