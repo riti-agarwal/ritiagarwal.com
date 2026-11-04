@@ -4,116 +4,152 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Riti Agarwal</title>
+<script>try { const t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
 <meta name="description" content="hello i am riti. Come on in and look around.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-/* A house you can walk into: an architect's line-drawn floor plan on warm paper, one clay accent, one tennis ball. */
+/* A field notebook: dot-grid pages, typed labels, a hand-lettered voice, and a pen sketch of the house taped in. */
 :root {
-  --paper: #faf8f4;
-  --ink: #24201c;
-  --muted: #7b736a;
-  --rule: #e6e0d8;
-  --accent: #b8603d;
-  --tint: #f3e6dd;
-  --sea: #f1eee8;
-  --land: #d8d0c3;
-  --court: #eaeee2;
+  --paper: #f7f3ec;
+  --sheet: #fffdf8;
+  --dot: #dcd4c7;
+  --ink: #2b2420;
+  --muted: #857a70;
+  --rule: #e2dbd0;
+  --accent: #b45a36;
+  --tint: #f3e4d9;
+  --tape: rgba(214, 196, 150, .55);
+  --sea: #efebe3;
+  --land: #d6cdbf;
+  --court: #eef1e6;
   --ball: #d9e04e;
-  --hand: "Architects Daughter", "Bradley Hand", "Comic Sans MS", cursive;
-  --body: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --hand: "Architects Daughter", "Bradley Hand", cursive;
+  --sans: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
 }
 @media (prefers-color-scheme: dark) {
-  :root {
-    --paper: #191715; --ink: #ece6df; --muted: #a1978d; --rule: #2f2a26;
-    --accent: #e08c68; --tint: #2e2420; --sea: #201d1a; --land: #3d362f; --court: #20251e;
+  :root:not([data-theme="light"]) {
+    --paper: #1a1816; --sheet: #23201d; --dot: #2e2a26; --ink: #ebe4da; --muted: #9c9187; --rule: #322d29;
+    --accent: #e08c68; --tint: #33271f; --tape: rgba(140, 120, 85, .45); --sea: #24211e; --land: #3e372f; --court: #222820;
     color-scheme: dark;
   }
+}
+:root[data-theme="dark"] {
+  --paper: #1a1816; --sheet: #23201d; --dot: #2e2a26; --ink: #ebe4da; --muted: #9c9187; --rule: #322d29;
+  --accent: #e08c68; --tint: #33271f; --tape: rgba(140, 120, 85, .45); --sea: #24211e; --land: #3e372f; --court: #222820;
+  color-scheme: dark;
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
-body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
-a { color: inherit; text-decoration-color: var(--accent); text-decoration-thickness: 2px; text-underline-offset: 4px; }
+body {
+  margin: 0; color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.65;
+  background-color: var(--paper);
+  background-image: radial-gradient(var(--dot) 1px, transparent 1.2px);
+  background-size: 22px 22px;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration-color: var(--accent); text-decoration-thickness: 1.5px; text-underline-offset: 4px; }
 a:hover { color: var(--accent); }
-a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
 p { margin: 0; }
-.wrap { max-width: 780px; margin: 0 auto; padding-left: max(20px, env(safe-area-inset-left)); padding-right: max(20px, env(safe-area-inset-right)); }
-.hand { font-family: var(--hand); }
+.wrap { max-width: 740px; margin: 0 auto; padding-left: max(20px, env(safe-area-inset-left)); padding-right: max(20px, env(safe-area-inset-right)); }
 
-/* header */
-.top { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding-block: 22px; font-size: 15px; }
-.top .name { font-weight: 700; text-decoration: none; }
-.top nav { display: flex; gap: 18px; }
+/* typed header strip */
+.top { display: flex; justify-content: space-between; align-items: center; gap: 10px 18px; flex-wrap: wrap; padding-block: 22px 14px; border-bottom: 1px solid var(--rule); font-family: var(--mono); font-size: 12.5px; }
+.top .name { text-decoration: none; letter-spacing: .02em; }
+.top nav { display: flex; gap: 16px; align-items: center; }
 .top nav a { color: var(--muted); text-decoration: none; }
 .top nav a:hover { color: var(--accent); }
+.night { font: inherit; color: var(--muted); background: none; border: 0; padding: 0; cursor: pointer; }
+.night:hover { color: var(--accent); }
 
 /* hello */
-.hello { padding-block: 40px 28px; display: grid; gap: 18px; }
-h1 { font-size: clamp(44px, 8vw, 76px); line-height: 1; letter-spacing: -0.03em; font-weight: 800; margin: 0; }
-h1 .wave { display: inline-block; transform-origin: 70% 80%; }
-.intro { font-size: clamp(19px, 2.3vw, 23px); line-height: 1.5; max-width: 34em; }
-.intro a { text-decoration-thickness: 2px; text-underline-offset: 5px; border-radius: 3px; transition: background-color .2s; }
+.hello { padding-block: 50px 30px; text-align: center; display: grid; justify-items: center; gap: 6px; }
+.hello .glyph { width: 44px; height: 44px; color: var(--accent); }
+h1 { font-family: var(--hand); font-weight: 400; font-size: clamp(46px, 8vw, 66px); line-height: 1.05; margin: 4px 0 0; }
+.sub { color: var(--muted); font-family: var(--mono); font-size: 13px; }
+
+/* numbered section labels, typed */
+.label { display: flex; align-items: center; gap: 12px; font-family: var(--mono); font-size: 11.5px; text-transform: uppercase; letter-spacing: .16em; color: var(--muted); margin: 0 0 18px; }
+.label .no { color: var(--accent); letter-spacing: .05em; }
+.label::after { content: ""; flex: 1; border-top: 1px dashed var(--rule); }
+.block { padding-block: 24px; }
+.intro { font-size: 18px; line-height: 1.6; }
+.intro a { border-radius: 3px; transition: background-color .2s; }
 .intro a:hover { background: var(--tint); color: inherit; }
 
-/* floor plan */
-.house { padding-block: 12px 8px; }
-.note { font-family: var(--hand); color: var(--accent); font-size: 21px; display: flex; align-items: end; gap: 6px; margin-bottom: 6px; }
+/* the house: a pen sketch taped into the notebook */
+.note { font-family: var(--hand); color: var(--accent); font-size: 21px; display: flex; align-items: end; gap: 6px; margin: 0 0 10px; }
 .note svg { width: 46px; height: 30px; flex: none; }
+.sheet { position: relative; margin: 0; padding: 14px; background: var(--sheet); border: 1px solid var(--rule); box-shadow: 0 1px 2px rgba(0,0,0,.05), 0 10px 24px -14px rgba(60,40,20,.35); }
+.sheet::before, .sheet::after { content: ""; position: absolute; top: -10px; width: 86px; height: 22px; background: var(--tape); }
+.sheet::before { left: 18px; transform: rotate(-5deg); }
+.sheet::after { right: 18px; transform: rotate(4deg); }
 .plan { display: block; width: 100%; height: auto; }
+.plan .sk { filter: url(#sketch); }
 .plan .room { cursor: pointer; }
-.plan .room .floor { fill: var(--paper); transition: fill .2s; }
+.plan .room .floor { fill: var(--sheet); transition: fill .2s; }
 .plan .room:hover .floor, .plan .room.active .floor, .plan .room:focus-visible .floor { fill: var(--tint); }
 .plan .room:focus-visible { outline: none; }
 .plan .room:hover .lbl, .plan .room.active .lbl { fill: var(--accent); }
 .plan .lbl { font-family: var(--hand); font-size: 19px; fill: var(--ink); transition: fill .2s; }
-.plan .walls { fill: none; stroke: var(--ink); stroke-width: 3.5; stroke-linecap: square; pointer-events: none; }
-.plan .line { fill: none; stroke: var(--ink); stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; }
-.plan .solid { fill: var(--paper); stroke: var(--ink); stroke-width: 1.5; }
+.plan .tiny { font-family: var(--hand); font-size: 11px; fill: var(--ink); }
+.plan .walls { fill: none; stroke: var(--ink); stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; pointer-events: none; }
+.plan .line { fill: none; stroke: var(--ink); stroke-width: 1.3; stroke-linejoin: round; stroke-linecap: round; }
+.plan .solid { fill: var(--sheet); stroke: var(--ink); stroke-width: 1.3; stroke-linejoin: round; }
+.plan .window { fill: var(--sheet); stroke: var(--ink); stroke-width: 1; }
 .plan .ink { fill: var(--ink); }
 .plan .acc { fill: var(--accent); }
+.plan .acc-line { fill: none; stroke: var(--accent); stroke-width: 2.2; stroke-linecap: round; }
+.plan .leaf { fill: #9bb48a; stroke: var(--ink); stroke-width: 1; }
 .plan .court-bg { fill: var(--court); }
 .plan .room:hover .court-bg, .plan .room.active .court-bg { fill: var(--tint); }
 .plan .small { font-family: var(--hand); font-size: 14px; fill: var(--muted); }
-.chips { list-style: none; padding: 0; margin: 14px 0 0; display: flex; flex-wrap: wrap; gap: 8px; }
-.chips a { display: inline-block; font-size: 14px; text-decoration: none; border: 1px solid var(--rule); border-radius: 999px; padding: 5px 13px; color: var(--muted); }
-.chips a:hover, .chips a.active { color: var(--paper); background: var(--ink); border-color: var(--ink); }
+.chips { list-style: none; padding: 0; margin: 16px 0 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.chips a { display: inline-block; font-family: var(--hand); font-size: 15px; text-decoration: none; border: 1px solid var(--rule); background: var(--sheet); border-radius: 999px; padding: 2px 13px; color: var(--muted); }
+.chips a:hover, .chips a.active { color: var(--sheet); background: var(--ink); border-color: var(--ink); }
 
 /* rooms */
-.rooms { padding-block: 26px 10px; }
-.room-section { padding-block: 26px; border-top: 1px solid var(--rule); scroll-margin-top: 16px; }
+.room-section { padding-block: 30px 10px; scroll-margin-top: 16px; }
 .js .room-section:not([hidden]) { animation: enter .35s ease-out; }
 @keyframes enter { from { opacity: 0; transform: translateY(10px); } }
 @media (prefers-reduced-motion: reduce) { .js .room-section:not([hidden]) { animation: none; } }
-.room-section .youre { font-family: var(--hand); color: var(--accent); font-size: 18px; }
-.room-section h2 { font-size: clamp(30px, 4.5vw, 40px); letter-spacing: -0.02em; line-height: 1.1; margin: 0 0 14px; font-weight: 800; }
-.room-section h3 { font-size: 15px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 26px 0 8px; font-weight: 600; }
+.room-section .youre { font-family: var(--mono); color: var(--accent); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; }
+.room-section h2 { font-family: var(--hand); font-weight: 400; font-size: clamp(34px, 5vw, 44px); line-height: 1.1; margin: 2px 0 14px; }
+.room-section h3 { font-family: var(--mono); font-size: 11.5px; text-transform: uppercase; letter-spacing: .16em; color: var(--muted); margin: 26px 0 10px; font-weight: 500; }
 .room-section p + p { margin-top: 12px; }
 .room-section ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
 .room-section li { padding-left: 22px; position: relative; }
-.room-section li::before { content: ""; position: absolute; left: 2px; top: .62em; width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid var(--accent); }
-.room-section .soon { margin-top: 14px; font-family: var(--hand); color: var(--muted); font-size: 18px; }
-.back { display: inline-block; margin-top: 22px; font-size: 15px; color: var(--muted); }
+.room-section li::before { content: ""; position: absolute; left: 3px; top: .62em; width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid var(--accent); }
+.room-section li b { font-weight: 700; }
+.room-section .soon { margin-top: 14px; font-family: var(--hand); color: var(--muted); font-size: 19px; }
+.back { display: inline-block; margin-top: 22px; font-family: var(--hand); font-size: 17px; color: var(--muted); }
 
 /* map room */
-.world { display: block; width: 100%; height: auto; margin: 6px 0 4px; }
+.world { display: block; width: 100%; height: auto; margin: 6px 0 4px; border: 1px solid var(--rule); background: var(--sheet); }
 .world .sea { fill: var(--sea); }
 .world .land { fill: var(--land); }
 .world .frame { fill: var(--sea); stroke: var(--ink); stroke-width: 1; }
 .world .zoom { stroke: var(--muted); stroke-width: .8; fill: none; }
-.world .pin circle { fill: var(--accent); stroke: var(--paper); stroke-width: 1.5; }
+.world .pin circle { fill: var(--accent); stroke: var(--sheet); stroke-width: 1.5; }
 .world .pin text { font-family: var(--hand); font-size: 12px; fill: var(--ink); }
 .world .pin:hover text { fill: var(--accent); }
 .world .tag { font-family: var(--hand); font-size: 11px; fill: var(--muted); }
 .cities { display: grid; gap: 4px; margin-top: 10px; }
 .room-section .cities p + p { margin-top: 0; }
-.city { padding: 12px 14px; border-radius: 8px; scroll-margin-top: 16px; transition: background-color .3s; }
+.city { padding: 12px 14px; border-radius: 6px; scroll-margin-top: 16px; transition: background-color .3s; }
 .city:target { background: var(--tint); }
-.city b { display: block; }
+.city b { display: block; font-family: var(--hand); font-size: 21px; font-weight: 400; }
 
-footer { padding-block: 40px 56px; color: var(--muted); font-size: 14px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; border-top: 1px solid var(--rule); margin-top: 30px; }
-footer a { color: var(--muted); }
+/* elsewhere */
+.links { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.links li { display: grid; grid-template-columns: 90px minmax(0, 1fr); gap: 12px; align-items: baseline; }
+.links span { color: var(--muted); font-family: var(--mono); font-size: 12.5px; }
+
+footer { padding-block: 26px 52px; margin-top: 24px; border-top: 1px solid var(--rule); color: var(--muted); font-family: var(--mono); font-size: 12px; text-align: center; }
 </style>
 </head>
 <body>
@@ -121,87 +157,169 @@ footer a { color: var(--muted); }
 
 <div class="wrap">
 <header class="top">
-  <a class="name" href="#house">riti agarwal</a>
+  <a class="name" href="#house">ritiagarwal.com</a>
   <nav aria-label="elsewhere">
-    <a href="https://x.com/riti_agarwal084">twitter</a>
+    <a href="https://x.com/riti_agarwal084">x</a>
     <a href="https://github.com/riti-agarwal">github</a>
     <a href="https://www.linkedin.com/in/riti-agarwal-0310051a9">linkedin</a>
+    <button class="night" id="night" type="button">night</button>
   </nav>
 </header>
 
 <section class="hello">
+  <svg class="glyph" viewBox="0 0 46 46" aria-hidden="true"><path d="M6 22 L23 7 L40 22 M10 19 V39 H36 V19 M19 39 V29 H27 V39 M30 12 V7 H34 V15.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></svg>
   <h1>hello i am riti</h1>
+  <p class="sub">come on in and look around</p>
+</section>
+
+<section class="block" id="about">
+  <p class="label"><span class="no">01</span>about</p>
   <p class="intro">I enjoy <a href="#desk">training (mostly posttraining) models</a>, <a href="#desk">building evals and thinking about clean data</a>, and <a href="#court">playing tennis</a>! I also enjoy <a href="#trail">hiking</a>, <a href="#kitchen">going to the farmers market</a>, and pottery!</p>
 </section>
 
-<section class="house" id="house" aria-label="floor plan">
+<section class="block house" id="house" aria-label="floor plan">
+  <p class="label"><span class="no">02</span>the house</p>
   <p class="note">come on in! pick a room
     <svg viewBox="0 0 46 30" aria-hidden="true"><path d="M3 6 C 16 4, 30 8, 36 24 M28 20 L36 25 L39 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
   </p>
-  <svg class="plan" viewBox="0 0 760 470" role="group" aria-label="floor plan of the rooms of my life">
-    <!-- rooms (clickable floors) -->
+  <figure class="sheet">
+  <svg class="plan" viewBox="0 0 760 476" role="group" aria-label="floor plan of the rooms of my life">
+    <defs>
+      <filter id="sketch" x="-3%" y="-3%" width="106%" height="106%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="11" result="noise"/>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.4" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+    </defs>
+
+    <!-- the desk -->
     <a class="room" href="#desk" aria-label="the desk">
       <rect class="floor" x="20" y="20" width="167" height="170"/>
-      <rect class="solid" x="58" y="80" width="92" height="34" rx="2"/>
-      <rect class="ink" x="88" y="85" width="32" height="20" rx="2"/>
-      <circle class="solid" cx="104" cy="138" r="12"/>
-      <text class="lbl" x="34" y="48">the desk</text>
+      <g class="sk">
+        <rect class="solid" x="28" y="62" width="14" height="104"/>
+        <path class="line" d="M28 82 H42 M28 104 H42 M28 126 H42 M28 148 H42 M32 64 V80 M36 64 V80 M31 84 V102 M37 84 V102 M33 106 V124"/>
+        <rect class="solid" x="62" y="66" width="104" height="38" rx="2"/>
+        <rect class="solid" x="96" y="71" width="36" height="22" rx="2"/>
+        <rect class="ink" x="99" y="74" width="30" height="16" rx="1"/>
+        <circle class="solid" cx="76" cy="80" r="7"/><circle class="acc" cx="76" cy="80" r="2.5"/>
+        <circle class="solid" cx="152" cy="84" r="5.5"/><path class="line" d="M157.5 84 h3"/>
+        <rect class="solid" x="100" y="114" width="28" height="24" rx="7"/>
+        <circle class="leaf" cx="166" cy="168" r="8"/><path class="line" d="M166 160 v-6 M160 163 l-4 -4 M172 163 l4 -4"/>
+      </g>
+      <text class="lbl" x="34" y="46">the desk</text>
     </a>
+
+    <!-- the workshop -->
     <a class="room" href="#workshop" aria-label="the workshop">
       <rect class="floor" x="187" y="20" width="166" height="170"/>
-      <rect class="solid" x="222" y="134" width="98" height="20" rx="2"/>
-      <polyline class="line" points="252,134 262,98 296,86" style="stroke-width:3"/>
-      <circle class="acc" cx="252" cy="134" r="4.5"/><circle class="acc" cx="262" cy="98" r="4.5"/><circle class="acc" cx="296" cy="86" r="4.5"/>
-      <circle class="solid" cx="304" cy="124" r="5"/>
-      <text class="lbl" x="201" y="48">the workshop</text>
+      <g class="sk">
+        <rect class="solid" x="334" y="58" width="12" height="96"/>
+        <path class="line" d="M338 68 h4 M338 80 h4 M338 92 h4 M338 104 h4 M338 116 h4 M338 128 h4 M338 140 h4"/>
+        <rect class="solid" x="200" y="112" width="116" height="22" rx="2"/>
+        <rect class="solid" x="226" y="102" width="20" height="10"/>
+        <polyline class="line" points="236,102 248,74 284,64" style="stroke-width:3"/>
+        <path class="line" d="M284 64 l8 -5 M284 64 l9 3"/>
+        <circle class="acc" cx="236" cy="102" r="4"/><circle class="acc" cx="248" cy="74" r="4"/><circle class="acc" cx="284" cy="64" r="4"/>
+        <circle class="solid" cx="300" cy="105" r="4"/>
+        <path class="line" d="M206 178 L238 150 M232 154 l10 -2"/>
+        <ellipse class="solid" cx="300" cy="172" rx="9" ry="4"/>
+        <path class="line" d="M300 172 V146"/><path class="acc" d="M300 146 L316 151 L300 156 Z"/>
+      </g>
+      <text class="lbl" x="201" y="46">the workshop</text>
     </a>
+
+    <!-- random facts -->
     <a class="room" href="#facts" aria-label="random facts">
       <rect class="floor" x="353" y="20" width="167" height="170"/>
-      <rect class="solid" x="378" y="122" width="50" height="40" rx="1"/><line class="line" x1="378" y1="130" x2="428" y2="130"/>
-      <rect class="solid" x="432" y="130" width="48" height="32" rx="1"/><line class="line" x1="432" y1="138" x2="480" y2="138"/>
-      <rect class="solid" x="398" y="84" width="50" height="38" rx="1"/><line class="line" x1="398" y1="92" x2="448" y2="92"/>
-      <text class="acc" x="474" y="112" style="font-family:var(--hand);font-size:36px">?</text>
-      <text class="lbl" x="367" y="48">random facts</text>
+      <g class="sk">
+        <rect class="solid" x="370" y="118" width="52" height="44" rx="1"/><path class="line" d="M370 127 H422 M396 118 V127"/>
+        <rect class="solid" x="426" y="128" width="50" height="34" rx="1"/><path class="line" d="M426 137 H476 M451 128 V137"/>
+        <rect class="solid" x="390" y="76" width="52" height="42" rx="1"/><path class="line" d="M390 85 H442 M416 76 V85"/>
+        <rect x="462" y="66" width="22" height="22" style="fill:var(--ball);stroke:var(--ink);stroke-width:1" transform="rotate(8 473 77)"/>
+        <rect x="482" y="98" width="22" height="22" style="fill:var(--tint);stroke:var(--ink);stroke-width:1" transform="rotate(-6 493 109)"/>
+        <path class="line" d="M466 74 h12 M466 79 h9 M486 105 h12 M486 110 h8"/>
+      </g>
+      <text class="acc" x="490" y="164" style="font-family:var(--hand);font-size:34px">?</text>
+      <text class="lbl" x="367" y="46">random facts</text>
     </a>
+
+    <!-- the kitchen -->
     <a class="room" href="#kitchen" aria-label="the kitchen">
       <rect class="floor" x="20" y="190" width="220" height="170"/>
-      <path class="solid" d="M30 214 H52 V326 H132 V348 H30 Z"/>
-      <path class="line" d="M156 286 A24 26 0 0 1 204 286"/>
-      <circle class="acc" cx="166" cy="281" r="7"/><circle cx="180" cy="278" r="7" style="fill:var(--ball)"/><circle cx="194" cy="281" r="7" style="fill:#8fae7e"/>
-      <path class="solid" d="M148 286 H212 A32 22 0 0 1 148 286 Z"/>
-      <text class="lbl" x="66" y="218">the kitchen</text>
+      <g class="sk">
+        <path class="solid" d="M28 210 H52 V326 H120 V352 H28 Z"/>
+        <circle class="line" cx="36" cy="226" r="4"/><circle class="line" cx="45" cy="226" r="4"/><circle class="line" cx="36" cy="238" r="4"/><circle class="line" cx="45" cy="238" r="4"/>
+        <rect class="line" x="32" y="272" width="14" height="22" rx="4"/><circle class="ink" cx="39" cy="278" r="1.5"/>
+        <rect class="solid" x="200" y="200" width="32" height="40" rx="2"/><path class="line" d="M200 216 H232 M226 205 v6 M226 222 v10"/>
+        <circle class="solid" cx="152" cy="284" r="30"/>
+        <circle class="solid" cx="152" cy="241" r="8"/><circle class="solid" cx="152" cy="327" r="8"/><circle class="solid" cx="109" cy="284" r="8"/><circle class="solid" cx="195" cy="284" r="8"/>
+        <path class="line" d="M140 284 A12 13 0 0 1 164 284"/>
+        <circle class="acc" cx="146" cy="281" r="5"/><circle cx="153" cy="279" r="5" style="fill:var(--ball);stroke:var(--ink);stroke-width:1"/><circle class="leaf" cx="159" cy="281" r="5"/>
+        <path class="solid" d="M136 284 H168 A16 11 0 0 1 136 284 Z"/>
+      </g>
+      <text class="lbl" x="64" y="216">the kitchen</text>
     </a>
+
+    <!-- the map room -->
     <a class="room" href="#map" aria-label="the map room">
       <rect class="floor" x="240" y="190" width="280" height="170"/>
-      <rect class="solid" x="292" y="232" width="192" height="82" rx="2"/>
-      <svg x="298" y="238" width="180" height="70" viewBox="0 0 600 233" preserveAspectRatio="none">
+      <g class="sk">
+        <rect class="solid" x="292" y="226" width="180" height="78" rx="2"/>
+        <circle class="solid" cx="500" cy="244" r="11"/><ellipse class="line" cx="500" cy="244" rx="5" ry="11"/><path class="line" d="M489 244 H511 M500 255 V262 M492 263 H508"/>
+        <rect class="solid" x="254" y="314" width="34" height="32" rx="7"/><path class="line" d="M259 320 V340 M283 320 V340 M259 340 H283"/>
+        <ellipse class="line" cx="460" cy="336" rx="42" ry="13" style="stroke-dasharray:3 4"/>
+      </g>
+      <svg x="297" y="231" width="170" height="68" viewBox="0 0 600 233" preserveAspectRatio="none">
         <rect width="600" height="233" style="fill:var(--sea)"/>
         <use href="#world-land" style="fill:var(--land)"/>
+        <circle cx="429" cy="112" r="9" class="acc"/><circle cx="62" cy="80" r="9" class="acc"/>
       </svg>
-      <text class="lbl" x="254" y="218">the map room</text>
+      <text class="lbl" x="254" y="216">the map room</text>
     </a>
+
+    <!-- tennis court -->
     <a class="room" href="#court" aria-label="tennis court">
       <rect class="floor court-bg" x="548" y="20" width="192" height="340" rx="3"/>
-      <rect class="line" x="572" y="64" width="144" height="276"/>
-      <line class="line" x1="572" y1="133" x2="716" y2="133"/><line class="line" x1="572" y1="271" x2="716" y2="271"/>
-      <line class="line" x1="644" y1="133" x2="644" y2="271"/>
-      <line class="line" x1="560" y1="202" x2="728" y2="202" style="stroke-width:3"/>
-      <circle cx="690" cy="236" r="5.5" style="fill:var(--ball);stroke:var(--ink);stroke-width:1"/>
-      <text class="lbl" x="564" y="48">tennis court</text>
+      <g class="sk">
+        <rect class="line" x="566" y="62" width="156" height="282"/>
+        <path class="line" d="M584 62 V344 M704 62 V344 M584 132 H704 M584 274 H704 M644 132 V274 M644 62 v6 M644 344 v-6"/>
+        <path class="line" d="M556 203 H732" style="stroke-width:3"/>
+        <circle class="ink" cx="556" cy="203" r="3"/><circle class="ink" cx="732" cy="203" r="3"/>
+        <ellipse class="line" cx="708" cy="38" rx="9" ry="12" transform="rotate(35 708 38)"/>
+        <path class="line" d="M701 47 L690 58" style="stroke-width:2.5"/>
+      </g>
+      <circle cx="676" cy="238" r="5.5" style="fill:var(--ball);stroke:var(--ink);stroke-width:1"/>
+      <path d="M672 236 q4 2 8 0" style="fill:none;stroke:#fff;stroke-width:1"/>
+      <text class="lbl" x="562" y="46">tennis court</text>
     </a>
+
+    <!-- the trailhead -->
     <a class="room" href="#trail" aria-label="the trailhead">
-      <rect class="floor" x="20" y="384" width="720" height="78" rx="3"/>
-      <path class="line" d="M372 456 L428 402 L466 432 L520 392 L578 446 L620 410 L668 456"/>
-      <path class="line" d="M402 456 L428 430 M500 412 L520 392 L540 412"/>
-      <path class="line" d="M36 446 C 80 404, 130 462, 190 428 S 290 414, 352 446" style="stroke:var(--accent);stroke-dasharray:2 7;stroke-width:3"/>
-      <path class="solid" d="M700 456 L712 428 L724 456 Z"/><path class="solid" d="M684 456 L694 436 L704 456 Z"/>
-      <text class="lbl" x="36" y="412">the trailhead</text>
+      <rect class="floor" x="20" y="382" width="720" height="82" rx="3"/>
+      <g class="sk">
+        <path class="line" d="M408 460 L462 402 L498 432 L552 388 L610 446 L650 412 L700 460"/>
+        <path class="line" d="M532 408 L552 388 L572 408 M446 418 L462 402 L478 418"/>
+        <path class="acc-line" d="M38 450 C 90 410, 150 466, 210 430 S 320 416, 392 452" style="stroke-dasharray:2 7"/>
+        <path class="leaf" d="M712 458 L722 432 L732 458 Z"/><path class="leaf" d="M392 458 L400 438 L408 458 Z"/><path class="leaf" d="M690 458 L698 440 L706 458 Z"/>
+        <path class="line" d="M322 458 V426"/><rect class="solid" x="302" y="414" width="44" height="15" rx="2"/>
+      </g>
+      <text class="tiny" x="324" y="425" text-anchor="middle">trail</text>
+      <text class="lbl" x="36" y="410">the trailhead</text>
     </a>
-    <!-- walls drawn over the floors, with doorways left open -->
-    <path class="walls" d="M20 20 H520 V360 H420 M380 360 H20 V20 M187 20 V190 M353 20 V190 M20 190 H80 M120 190 H260 M300 190 H420 M460 190 H520 M240 190 V250 M240 290 V360"/>
-    <path class="line" d="M380 360 V322 M380 322 A38 38 0 0 1 418 360" style="pointer-events:none"/>
-    <text class="small" x="400" y="378" text-anchor="middle" style="pointer-events:none">front door</text>
+
+    <!-- walls, windows and doors, drawn over the floors -->
+    <g class="sk" style="pointer-events:none">
+      <path class="walls" d="M20 20 H520 V360 H420 M380 360 H20 V20 M187 20 V190 M353 20 V190 M20 190 H80 M120 190 H260 M300 190 H420 M460 190 H520 M240 190 V250 M240 290 V360"/>
+      <rect class="window" x="90" y="16.5" width="44" height="7"/><path class="line" d="M90 20 H134"/>
+      <rect class="window" x="246" y="16.5" width="44" height="7"/><path class="line" d="M246 20 H290"/>
+      <rect class="window" x="410" y="16.5" width="44" height="7"/><path class="line" d="M410 20 H454"/>
+      <rect class="window" x="16.5" y="248" width="7" height="44"/><path class="line" d="M20 248 V292"/>
+      <rect class="window" x="516.5" y="70" width="7" height="44"/><path class="line" d="M520 70 V114"/>
+      <rect class="window" x="516.5" y="270" width="7" height="44"/><path class="line" d="M520 270 V314"/>
+      <path class="line" d="M380 360 V322 M380 322 A38 38 0 0 1 418 360"/>
+    </g>
+    <text class="small" x="400" y="376" text-anchor="middle" style="pointer-events:none">front door</text>
   </svg>
+  </figure>
   <ul class="chips" aria-label="rooms">
     <li><a href="#desk">the desk</a></li>
     <li><a href="#workshop">the workshop</a></li>
@@ -320,10 +438,16 @@ footer a { color: var(--muted); }
 
 </main>
 
-<footer>
-  <span>riti agarwal · last updated november 2026</span>
-  <span><a href="https://x.com/riti_agarwal084">twitter</a> · <a href="https://github.com/riti-agarwal">github</a> · <a href="https://www.linkedin.com/in/riti-agarwal-0310051a9">linkedin</a></span>
-</footer>
+<section class="block" id="elsewhere">
+  <p class="label"><span class="no">03</span>elsewhere</p>
+  <ul class="links">
+    <li><span>x</span><a href="https://x.com/riti_agarwal084">@riti_agarwal084</a></li>
+    <li><span>github</span><a href="https://github.com/riti-agarwal">riti-agarwal</a></li>
+    <li><span>linkedin</span><a href="https://www.linkedin.com/in/riti-agarwal-0310051a9">riti agarwal</a></li>
+  </ul>
+</section>
+
+<footer>riti agarwal · san francisco · last updated november 2026</footer>
 </div>
 
 <script>
@@ -342,6 +466,17 @@ footer a { color: var(--muted); }
   }
   addEventListener('hashchange', show);
   show();
+
+  // night / day toggle, remembered on this device
+  const root = document.documentElement, btn = document.getElementById('night');
+  const isDark = () => root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+  const label = () => { btn.textContent = isDark() ? 'day' : 'night'; };
+  btn.addEventListener('click', () => {
+    root.dataset.theme = isDark() ? 'light' : 'dark';
+    try { localStorage.setItem('theme', root.dataset.theme); } catch (e) {}
+    label();
+  });
+  label();
 })();
 </script>
 </body>
