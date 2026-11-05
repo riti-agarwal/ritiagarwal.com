@@ -152,6 +152,14 @@ footer { padding-block: 26px 52px; margin-top: 24px; border-top: 1px solid var(-
 /* patterned tape holding the sketch and the map */
 .sheet::before { background: repeating-linear-gradient(45deg, var(--blush) 0 6px, #fae1da 6px 12px); opacity: .9; }
 .sheet::after { background-color: var(--sky); background-image: radial-gradient(#ffffff 1.6px, transparent 2px); background-size: 9px 9px; opacity: .9; }
+/* demo snapshots, taped into the notebook */
+.snap { position: relative; display: block; width: fit-content; max-width: min(100%, 300px); margin: 12px 0 6px; padding: 7px 7px 4px; background: #fff; box-shadow: 0 1px 1px rgba(0,0,0,.06), 0 8px 14px -10px rgba(60,40,20,.45); transform: rotate(-1.2deg); }
+li:nth-child(even) > .snap { transform: rotate(1deg); }
+.snap::before { content: ""; position: absolute; top: -9px; left: 50%; width: 70px; height: 18px; transform: translateX(-50%) rotate(-3deg); background: var(--c, var(--butter)); opacity: .85;
+  background-image: repeating-linear-gradient(90deg, rgba(255,255,255,.35) 0 3px, transparent 3px 7px); }
+.snap img { display: block; width: 100%; height: auto; }
+.snap.tall { max-width: 150px; }
+.snap figcaption { font-family: var(--hand); font-size: 14px; color: var(--muted); text-align: center; padding-top: 3px; }
 .taped { position: relative; margin: 10px 0 4px; }
 .taped::before { content: ""; position: absolute; top: -9px; left: 50%; width: 92px; height: 20px; transform: translateX(-50%) rotate(-2deg);
   background: repeating-linear-gradient(90deg, var(--sage) 0 8px, #dfe9d6 8px 16px); opacity: .9; z-index: 1; }
@@ -400,46 +408,39 @@ footer { padding-block: 26px 52px; margin-top: 24px; border-top: 1px solid var(-
   <h2><span class="hl">the desk</span></h2>
   <p>This is where I train (mostly posttrain) models, build evals and think about data.</p>
   <h3>right now</h3>
-  <p>At Composite I work on models that predict your next move in the browser, with no prompt. I fine-tune them, use RL so they learn when <i>not</i> to act, and work on making them fast enough to feel instant. I also build the evals that score each part of a prediction on its own, and the datasets made from real browsing sessions.</p>
+  <p>At Composite I'm teaching models to guess what you'll do next in your browser, before you ask. Most days that means fine-tuning them, using RL so they learn when to stay quiet, making them fast enough to feel instant, and building the evals and datasets (from real browsing sessions) that tell us whether any of it works.</p>
   <p>I have written about <a href="https://research.composite.com/next-action">what worked</a>, and about <a href="https://research.composite.com/road-not-taken">my experiments with what didn't</a>.</p>
-  <h3>before</h3>
-  <ul>
-    <li><b>Uber</b>: rider personalization.</li>
-    <li><b>Juniper Networks</b>: a conversational copilot for network admins. Productionized and patent pending.</li>
-    <li><b>OpalAI</b>: turning phone video into 3D reconstructions and retail floor plans.</li>
-    <li><b>Cedars-Sinai</b>: models on balance data to help assess hip and knee replacements.</li>
-    <li><b>Games24x7</b>: bandit experiments as a faster alternative to A/B tests.</li>
-  </ul>
-  <h3>research</h3>
-  <ul>
-    <li>Finding odd stars with topology, Caltech SURF 2022 (<a href="https://github.com/riti-agarwal/SURF">code</a>)</li>
-    <li>A paper on bandit algorithms, IJNTR 2020 (<a href="https://www.ijntr.org/the-epsilon-greedy-algorithm-a-performance-review">paper</a>)</li>
-    <li>Mars crater detection in the Murray Lab at Caltech</li>
-  </ul>
+  <h3>how I got here</h3>
+  <p>Before Composite, I worked on rider personalization at Uber, and on a chat copilot for network admins at Juniper Networks. That one shipped, and the patent is pending.</p>
+  <p>At Caltech I turned phone videos into 3D floor plans at OpalAI, modeled balance data to help doctors assess hip and knee replacements at Cedars-Sinai, and ran bandit experiments at Games24x7 as a faster alternative to A/B tests.</p>
+  <p>On the research side, I looked for odd stars with topology for Caltech SURF (<a href="https://github.com/riti-agarwal/SURF">code</a>), hunted for craters on Mars in the Murray Lab, and wrote <a href="https://www.ijntr.org/the-epsilon-greedy-algorithm-a-performance-review">a paper on bandit algorithms</a> back in 2020.</p>
   <a class="back" href="#house">back to the house</a>
 </section>
 
 <section class="room-section" id="workshop" style="--c:var(--butter)">
   <p class="youre">you're in</p>
   <h2><span class="hl">the workshop</span></h2>
-  <p>Things I've built.</p>
+  <p>Things I've built, in class and for fun.</p>
   <h3>things I did at caltech</h3>
   <ul>
-    <li><b>A robot that plays mini-golf.</b> It takes turns with a human player: it spots its club with a camera, picks it up, putts toward the hole, and nudges the ball off the walls. A five-joint SCARA arm over a C-shaped 4 ft &times; 3 ft course, built with Iñigo Jensen and Kimberly Miranda Reyes for ME/CS/EE 134 (2025). (<a href="https://github.com/riti-agarwal/134_project_proper">code</a>, <a href="papers/me134-mini-golf-robot.pdf">report</a>)</li>
-    <li><b>A robot that plays tennis.</b> A simulated six-joint arm that tracks an incoming ball and hits it to a random target, with smooth, human-like swings. Built with Jihyun Jeon for ME 133a (2023), on top of the course's kinematics projects: Jacobians and trajectories in ROS 2. (<a href="https://github.com/riti-agarwal/Me-133a-Final-Project">code</a>, <a href="papers/me133a-tennis-robot.pdf">report</a>, <a href="https://github.com/riti-agarwal/Me-133a-projects">kinematics projects</a>)</li>
-    <li><b>Pandemaniac.</b> Strategies for a competitive network game where teams pick seed nodes to spread across a graph, including one built on Thompson sampling. A team project for a Caltech networks course (2024). (<a href="https://github.com/psehgal2/Pandemaniac">code</a>)</li>
-    <li><b>Connecting images to an LLM.</b> A proposal to feed CLIP image embeddings into an LLM through a small mapping network, trained with self-critical sequence training, for EE 148 (2024). (<a href="papers/ee148-clip-llm-proposal.pdf">proposal</a>)</li>
-    <li><b>Diffusion models from the ground up.</b> DDPM derivations, score matching, and training a diffusion model, for EE 148b (2024). (<a href="papers/ee148b-diffusion-models.pdf">write-up</a>, 14 MB)</li>
+    <li><b>A robot that plays mini-golf with you.</b> You take your shot, then it takes its turn: it finds its club with a camera, picks it up, and putts, banking off the walls when it has to. Iñigo Jensen, Kimberly Miranda Reyes and I built the arm and the course for ME/CS/EE 134 (2025). (<a href="https://github.com/riti-agarwal/134_project_proper">code</a>, <a href="papers/me134-mini-golf-robot.pdf">report</a>)
+      <figure class="snap"><img src="img/mini-golf-robot.jpg" width="720" height="472" loading="lazy" alt="A five-joint robot arm holding a putter next to a yellow ball on a green mini-golf course"><figcaption>our robot, ready to putt</figcaption></figure></li>
+    <li><b>A robot that plays tennis.</b> Of course I had to. A simulated six-joint arm watches the ball come in and swings to send it to a target, with smooth, human-like strokes. Built with Jihyun Jeon for ME 133a (2023). (<a href="https://github.com/riti-agarwal/Me-133a-Final-Project">code</a>, <a href="papers/me133a-tennis-robot.pdf">report</a>, <a href="https://github.com/riti-agarwal/Me-133a-projects">kinematics projects</a>)
+      <figure class="snap" style="max-width:220px"><img src="img/tennis-robot-sim.jpg" width="460" height="520" loading="lazy" alt="A simulated robot arm with a racket about to hit a ball"><figcaption>mid-swing, in simulation</figcaption></figure></li>
+    <li><b>Pandemaniac.</b> A class tournament where teams pick seed nodes and race to take over a graph. One of our strategies used Thompson sampling (2024). (<a href="https://github.com/psehgal2/Pandemaniac">code</a>)</li>
+    <li><b>Teaching an LLM to see.</b> A proposal for plugging CLIP image embeddings into an LLM through a small mapping network, for EE 148 (2024). (<a href="papers/ee148-clip-llm-proposal.pdf">proposal</a>)</li>
+    <li><b>Diffusion models from the ground up.</b> Working through the math of DDPMs and score matching, then training one, for EE 148b (2024). (<a href="papers/ee148b-diffusion-models.pdf">write-up</a>, 14 MB)</li>
   </ul>
   <h3>other things</h3>
   <ul>
-    <li><b>TomorrowCard.</b> Student credit underwriting with agents: it verifies transcripts and résumés and estimates future earnings. 1st place at AGI House, built with Krish Mehta. (<a href="https://github.com/KrishMehta-29/TomorrowCardPublic">code</a>, <a href="https://www.linkedin.com/posts/riti-agarwal-0310051a9_thrilled-to-share-that-krish-mehta-and-i-activity-7321721374027239424-Igxu">announcement</a>)</li>
-    <li><b>Linklet.</b> A personal AI advocate. It reads your GitHub, résumé and site, then answers questions about you in chat.</li>
-    <li><b>AEGIS.</b> A walk-home safety companion on Gemini Live. It watches and listens, flags threats, tracks your route and can call a friend. Built with Krish Mehta.</li>
-    <li><b>GroceryAI.</b> A kitchen helper that keeps track of what's in the pantry: tell it what you bought or used, by voice or text, and it updates the list, converting units along the way. Built with Krish Mehta.</li>
-    <li><b>Xactly.</b> A shopping assistant that finds products from a conversation. (<a href="https://github.com/riti-agarwal/Xactly_public">code</a>)</li>
-    <li><b>Pengu Run.</b> A multiplayer penguin platformer that runs in the browser. (<a href="https://github.com/riti-agarwal/pengu-run">code</a>)</li>
-    <li><b>LLM watermarking.</b> Spread-spectrum watermarks: hiding a statistical signal in LLM-generated text that can be detected later.</li>
+    <li><b>Pengu Run.</b> A two-player penguin race in the browser: grab coins and throw snowballs. Play on one keyboard or online. (<a href="https://pengu-run-deploy.vercel.app">play it</a>, <a href="https://github.com/riti-agarwal/pengu-run">code</a>)
+      <figure class="snap tall"><a href="https://pengu-run-deploy.vercel.app"><img src="img/pengu-run.jpg" width="312" height="467" loading="lazy" alt="A penguin at the start of a snowy level in Pengu Run"></a><figcaption>tap to play</figcaption></figure></li>
+    <li><b>TomorrowCard.</b> Credit for students based on where they're headed, not their credit history. Agents check transcripts and résumés and estimate future earnings. Krish Mehta and I won 1st place at AGI House with it. (<a href="https://github.com/KrishMehta-29/TomorrowCardPublic">code</a>, <a href="https://www.linkedin.com/posts/riti-agarwal-0310051a9_thrilled-to-share-that-krish-mehta-and-i-activity-7321721374027239424-Igxu">announcement</a>)</li>
+    <li><b>AEGIS.</b> A companion for walking home. Built on Gemini Live, it watches and listens, flags anything that looks off, follows your route, and can call a friend. Built with Krish Mehta.</li>
+    <li><b>GroceryAI.</b> Krish and I wanted our kitchens to keep track of themselves. Tell it what you bought or used, by voice or text, and it keeps the pantry list up to date, converting units along the way.</li>
+    <li><b>Linklet.</b> An AI that speaks up for you. It reads your GitHub, résumé and website, then answers people's questions about you.</li>
+    <li><b>Xactly.</b> Describe what you want in a chat and it finds the product. (<a href="https://github.com/riti-agarwal/Xactly_public">code</a>)</li>
+    <li><b>LLM watermarking.</b> Hiding a faint statistical signal in the text an LLM writes, so you can tell later that a model wrote it.</li>
   </ul>
   <a class="back" href="#house">back to the house</a>
 </section>
