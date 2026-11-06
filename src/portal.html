@@ -157,7 +157,8 @@ footer { padding-block: 26px 52px; margin-top: 24px; border-top: 1px solid var(-
 li:nth-child(even) > .snap { transform: rotate(1deg); }
 .snap::before { content: ""; position: absolute; top: -9px; left: 50%; width: 70px; height: 18px; transform: translateX(-50%) rotate(-3deg); background: var(--c, var(--butter)); opacity: .85;
   background-image: repeating-linear-gradient(90deg, rgba(255,255,255,.35) 0 3px, transparent 3px 7px); }
-.snap img { display: block; width: 100%; height: auto; }
+.snap img, .snap video { display: block; width: 100%; height: auto; }
+.snap.wide { max-width: min(100%, 420px); }
 .snap.tall { max-width: 150px; }
 .snap figcaption { font-family: var(--hand); font-size: 14px; color: var(--muted); text-align: center; padding-top: 3px; }
 .taped { position: relative; margin: 10px 0 4px; }
@@ -424,9 +425,9 @@ li:nth-child(even) > .snap { transform: rotate(1deg); }
   <h3>things I did at caltech</h3>
   <ul>
     <li><b>A robot that plays mini-golf with you.</b> You take your shot, then it takes its turn: it finds its club with a camera, picks it up, and putts, banking off the walls when it has to. Iñigo Jensen, Kimberly Miranda Reyes and I built the arm and the course for ME/CS/EE 134 (2025). (<a href="https://github.com/riti-agarwal/134_project_proper">code</a>, <a href="papers/me134-mini-golf-robot.pdf">report</a>)
-      <figure class="snap"><img src="img/mini-golf-robot.jpg" width="720" height="472" loading="lazy" alt="A five-joint robot arm holding a putter next to a yellow ball on a green mini-golf course"><figcaption>our robot, ready to putt</figcaption></figure></li>
+      <figure class="snap wide"><video controls preload="none" playsinline width="720" height="406" poster="img/mini-golf-robot-poster.jpg"><source src="video/mini-golf-robot.mp4" type="video/mp4"></video><figcaption>watch it play a round (3:40)</figcaption></figure></li>
     <li><b>A robot that plays tennis.</b> Of course I had to. A simulated six-joint arm watches the ball come in and swings to send it to a target, with smooth, human-like strokes. Built with Jihyun Jeon for ME 133a (2023). (<a href="https://github.com/riti-agarwal/Me-133a-Final-Project">code</a>, <a href="papers/me133a-tennis-robot.pdf">report</a>, <a href="https://github.com/riti-agarwal/Me-133a-projects">kinematics projects</a>)
-      <figure class="snap" style="max-width:220px"><img src="img/tennis-robot-sim.jpg" width="460" height="520" loading="lazy" alt="A simulated robot arm with a racket about to hit a ball"><figcaption>mid-swing, in simulation</figcaption></figure></li>
+      <figure class="snap wide"><video controls preload="none" playsinline muted width="720" height="406" poster="img/tennis-robot-poster.jpg"><source src="video/tennis-robot.mp4" type="video/mp4"></video><figcaption>watch it rally (2:04)</figcaption></figure></li>
     <li><b>Pandemaniac.</b> A class tournament where teams pick seed nodes and race to take over a graph. One of our strategies used Thompson sampling (2024). (<a href="https://github.com/psehgal2/Pandemaniac">code</a>)</li>
     <li><b>Teaching an LLM to see.</b> A proposal for plugging CLIP image embeddings into an LLM through a small mapping network, for EE 148 (2024). (<a href="papers/ee148-clip-llm-proposal.pdf">proposal</a>)</li>
     <li><b>Diffusion models from the ground up.</b> Working through the math of DDPMs and score matching, then training one, for EE 148b (2024). (<a href="papers/ee148b-diffusion-models.pdf">write-up</a>, 14 MB)</li>
